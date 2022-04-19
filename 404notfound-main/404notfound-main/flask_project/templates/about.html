@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="../static/parse_icon.jpg">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>MUCA</title>
+    {% endif %}
+</head>
+<body>
+    <header class="site-header">
+
+    <!-- dropdown menu button for smaller screens --->
+        <span class="dropdown-btn" onclick="toggleDropdown()">&#9776; Multilingual User Corpus Annotator</span>
+        <div id="dropdown-menu">
+                <a class="dropdown-item" href="/">Home</a>
+                <a class="dropdown-item" href="/about">About</a>
+                {% if current_user.is_authenticated %}
+                    <a class="dropdown-item" href="/jsonconvert">JSON Converter</a>
+                    <a class="dropdown-item" href="/xmlconvert">XML Converter</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+
+                {% else %}
+                    <a class="dropdown-item" href="/login">Login</a>
+                    <a class="dropdown-item" href="/register">Register</a>
+                {% endif %}
+        </div>
+
+    <!-- navbar menu button for larger screens --->
+      <nav class="navbar">
+          <img class="logo" src="../static/parse_icon.jpg">
+            <div class="container">
+                <!-- Navbar Left Side -->
+                  <a class="nav-item-left" href="/">Multilingual User Corpus Annotator</a>
+                  <a class="nav-item-left" href="/">Home</a>
+                  <a class="nav-item-left" href="/about">About</a>
+                <!-- Navbar Right Side -->
+                {% if current_user.is_authenticated %}
+                    <a id="logout" onclick="logoutConf()" class="nav-item-right" href="">Logout</a>
+                    <a class="nav-item-right" href="/jsonconvert">JSON Converter</a>
+                    <a class="nav-item-right" href="/xmlconvert">XML Converter</a>
+                {% else %}
+                    <a class="nav-item-right" href="/login">Login</a>
+                    <a class="nav-item-right" href="/register">Register</a>
+                {% endif %}
+              </div>
+      </nav>
+    </header>
+
+<div class="main">
+    <h2>About Us:</h2>
+
+
+<p><i>404NotFound</i> is a hardworking team of digital linguists with dedication towards Multidisciplinary, Multilingual and Linguistic Goals.</p>
+
+<img class="reg-images" src="../static/nlp_image.png">
+
+<h3>We aim to provide effort and commitment in creation of programs/webpages that suit your needs and are as accessible as possible.</h3>
+
+<p> We created MUCA in order to offer NLP tools ranging from simple tokenization, lemmatization, POS tagging and document conversion for any user irrespective of their experience on the field of NLP.</p>
+<p> If you have any queries and issues, please feel free to contact us on any of our social media pages [example of link to FB]. [example of link to Twitter] </p>
+
+</div>
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.display = "inline-block";
+      document.getElementById("mySidenav").style.width = "300px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.display = "none";
+      document.getElementById("mySidenav").style.width = "0";
+    }
+
+    function openDrop() {
+        document.getElementById("dropdown-menu").style.display = "block";
+    }
+
+    function closeDrop() {
+        document.getElementById("dropdown-menu").style.display = "none";
+    }
+
+    function toggleDropdown() {
+        dropDisplay = document.getElementById("dropdown-menu").style.display;
+        if (dropDisplay == "block") {
+        return closeDrop();
+    }
+    return openDrop();
+    }
+
+    function logoutConf() {
+        var message = confirm("Are you sure you want to logout?");
+        if (message == true) {
+            document.getElementById("logout").href = "/logout";
+        }
+    }
+</script>
+
+
+<footer>
+	<strong>MUCA Project 2021</strong><br>
+	Team 404NotFound<br>
+	[Rights or no Rights] Reserved<br>
+	NLP tools and features powered by <a href="https://spacy.io/"target="_blank">SpaCy</a>
+</footer>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="icon" href="../static/parse_icon.jpg">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>MUCA</title>
+    {% endif %}
+
+</head>
+
+<body>
+    <header class="site-header">
+
+    <!-- dropdown menu button for smaller screens --->
+        <span class="dropdown-btn" onclick="toggleDropdown()">&#9776; Multilingual User Corpus Annotator</span>
+        <div id="dropdown-menu">
+                <a class="dropdown-item" href="/">Home</a>
+                <a class="dropdown-item" href="/about">About</a>
+                {% if current_user.is_authenticated %}
+                    <a class="dropdown-item" href="/jsonconvert">JSON Converter</a>
+                    <a class="dropdown-item" href="/xmlconvert">XML Converter</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+
+                {% else %}
+                    <a class="dropdown-item" href="/login">Login</a>
+                    <a class="dropdown-item" href="/register">Register</a>
+                {% endif %}
+        </div>
+
+    <!-- navbar menu button for larger screens --->
+      <nav class="navbar">
+          <img class="logo" src="../static/parse_icon.jpg">
+            <div class="container">
+                <!-- Navbar Left Side -->
+                  <a class="nav-item-left" href="/">Multilingual User Corpus Annotator</a>
+                  <a class="nav-item-left" href="/">Home</a>
+                  <a class="nav-item-left" href="/about">About</a>
+                <!-- Navbar Right Side -->
+                {% if current_user.is_authenticated %}
+                    <a id="logout" onclick="logoutConf()" class="nav-item-right" href="">Logout</a>
+                    <a class="nav-item-right" href="/jsonconvert">JSON Converter</a>
+                    <a class="nav-item-right" href="/xmlconvert">XML Converter</a>
+                {% else %}
+                    <a class="nav-item-right" href="/login">Login</a>
+                    <a class="nav-item-right" href="/register">Register</a>
+                {% endif %}
+              </div>
+      </nav>
+    </header>
+    <div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <br>
+    <!-- side navigation bar button for smaller screens --->
+    <span class="sidenav-btn" onclick="openNav()">&#128366; Glossary</span>
+    <div class="main">
+        <h1>Greetings!</h1>
+        <h2><strong> Welcome to the Multilingual User Corpus Annotator (M.U.C.A.)</strong></h2>
+        <br>
+		At your service!
+        <br>
+		<br>
+        <h3>How to use the annotator:</h3>
+        <ul>
+            <li><a>To use the annotator you have to <b>register or sign in first</b>.</a>
+            <li><a>Upload a corpus in txt format.</a>
+            <li><a>Choose your preferred Natural Language Processing tasks by filling out the form.</a>
+        </ul>
+        <h3>What can the annotator do:</h3>
+        <ul>
+            <li><a href="https://nlp.stanford.edu/IR-book/html/htmledition/tokenization-1.html"target="_blank">Tokenize (Turn text to Tokens)</a> the corpus</li>
+            <li>Add <a href="https://web.stanford.edu/~jurafsky/slp3/8.pdf"target="_blank">POS Tags</a> (Based on the language of choice)</li>
+            <li>Add lemmas (Based on the language of choice)</li>
+        </ul>
+        <h3>Output file:</h3>
+        <li>The output file can be either an <a href="https://www.w3schools.com/xml/xml_usedfor.asp"target="_blank">XML file</a> or <a href="https://www.w3schools.com/js/js_json_intro.asp"target="_blank">JSON file</a></li>
+    </div>
+    <!-- side navigation bar for smaller screens --->
+	<div id="mySidenav" class="glossary-sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a>Little Glossary:</a>
+		<ul>
+			<li><b>Token</b>: An individual occurrence of a linguistic unit in speech or writing. Or simply a word as an individual unit in a sentence.
+			<br><a href="https://www.lexico.com/definition/token">Definition 3</a></li>
+			<li><b>Corpus</b>: Collection of written text or spoken material recorded on text used for the purpose of linguistic studies.
+			<br><a href="https://dictionary.cambridge.org/dictionary/english/corpus">Definition from Cambridge Dictionary</a></li>
+			<li><b>Lemma</b>: Form of a word which represents as base of any variation and possible forms. Ex. The lemma of the word "build" for "building", 'builds" and etc.
+			<br><a href="https://dictionary.cambridge.org/dictionary/english/lemma">Definition from Cambridge Dictionary</a></li>
+			<li><b>Part-of-Speech Tagging (POS Tagging)</b>:  process of marking up a word in a text or corpus matching to a part of speech based on context and language (ex. verb, noun)
+			<br><a href="https://en.wikipedia.org/wiki/Part-of-speech_tagging">Definition from Wikipedia</a></li>
+		</ul>
+    </div>
+    <!-- glossary on screen for larger screens --->
+    <div class="glossary">
+		<a>&#128204; Little Glossary: <a/>
+		<ul>
+			<li><b>Token</b>: An individual occurrence of a linguistic unit in speech or writing. Or simply a word as an individual unit in a sentence.
+			<br><a href="https://www.lexico.com/definition/token">Definition 3</a></li>
+			<li><b>Corpus</b>: Collection of written text or spoken material recorded on text used for the purpose of linguistic studies.
+			<br><a href="https://dictionary.cambridge.org/dictionary/english/corpus">Definition from Cambridge Dictionary</a></li>
+			<li><b>Lemma</b>: Form of a word which represents as base of any variation and possible forms. Ex. The lemma of the word "build" for "building", 'builds" and etc.
+			<br><a href="https://dictionary.cambridge.org/dictionary/english/lemma">Definition from Cambridge Dictionary</a></li>
+			<li><b>Part-of-Speech Tagging (POS Tagging)</b>:  process of marking up a word in a text or corpus matching to a part of speech based on context and language (ex. verb, noun)
+			<br><a href="https://en.wikipedia.org/wiki/Part-of-speech_tagging">Definition from Wikipedia</a></li>
+		</ul>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+    function openNav() {
+        document.getElementById("mySidenav").style.display = "inline-block";
+      document.getElementById("mySidenav").style.width = "300px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.display = "none";
+      document.getElementById("mySidenav").style.width = "0";
+    }
+
+    function openDrop() {
+        document.getElementById("dropdown-menu").style.display = "block";
+    }
+
+    function closeDrop() {
+        document.getElementById("dropdown-menu").style.display = "none";
+    }
+
+    function toggleDropdown() {
+        dropDisplay = document.getElementById("dropdown-menu").style.display;
+        if (dropDisplay == "block") {
+        return closeDrop();
+    }
+    return openDrop();
+    }
+
+    function logoutConf() {
+        var message = confirm("Are you sure you want to logout?");
+        if (message == true) {
+            document.getElementById("logout").href = "/logout";
+        }
+    }
+</script>
+<footer>
+	<strong>MUCA Project 2021</strong><br>
+	Team 404NotFound<br>
+	[Rights or no Rights] Reserved<br>
+	NLP tools and features powered by <a href="https://spacy.io/"target="_blank">SpaCy</a>
+</footer>
+</body>

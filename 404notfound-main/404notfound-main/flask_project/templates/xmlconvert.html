@@ -1,0 +1,132 @@
+<html lang="en">
+<!DOCTYPE html>
+
+<head>
+    <link rel="icon" href="../static/parse_icon.jpg">
+    <meta charset="utf-8"/>
+    <title>eXtensible Markup Language Tool</title>
+	    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>MUCA</title>
+    {% endif %}
+	
+</head>
+
+<body>
+
+    <header class="site-header">
+        <!-- dropdown menu button for smaller screens --->
+        <span class="dropdown-btn" onclick="toggleDropdown()">&#9776; Multilingual User Corpus Annotator</span>
+        <div id="dropdown-menu">
+                <a class="dropdown-item" href="/">Home</a>
+                <a class="dropdown-item" href="/about">About</a>
+                {% if current_user.is_authenticated %}
+                    <a class="dropdown-item" href="/jsonconvert">JSON Converter</a>
+                    <a class="dropdown-item" href="/xmlconvert">XML Converter</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+
+                {% else %}
+                    <a class="dropdown-item" href="/login">Login</a>
+                    <a class="dropdown-item" href="/register">Register</a>
+                {% endif %}
+        </div>
+
+    <!-- navbar menu button for larger screens --->
+      <nav class="navbar">
+          <img class="logo" src="../static/parse_icon.jpg">
+            <div class="container">
+                <!-- Navbar Left Side -->
+                  <a class="nav-item-left" href="/">Multilingual User Corpus Annotator</a>
+                  <a class="nav-item-left" href="/">Home</a>
+                  <a class="nav-item-left" href="/about">About</a>
+                <!-- Navbar Right Side -->
+                {% if current_user.is_authenticated %}
+                    <a id="logout" onclick="logoutConf()" class="nav-item-right" href="">Logout</a>
+                    <a class="nav-item-right" href="/jsonconvert">JSON Converter</a>
+                    <a class="nav-item-right" href="/xmlconvert">XML Converter</a>
+                {% else %}
+                    <a class="nav-item-right" href="/login">Login</a>
+                    <a class="nav-item-right" href="/register">Register</a>
+                {% endif %}
+              </div>
+      </nav>
+
+    </header>
+
+<div class="uploadfile-box">
+    <h1>MUCA XML text parser.</h1>
+    <h2>Upload new document here (in .txt) to Convert to XML</h2>
+
+<form method=POST enctype=multipart/form-data>
+  <input class="upload-elem" name='xmlconverter', id='xmlxml'>
+  <input class="upload-elem" type=file name=file accept=".txt"> <br>
+  <select class="upload-elem" name="language" required>
+        <option value="">Select Language</option>
+        <option value="English">English</option>
+        <option value="German">German</option>
+        <option value="Greek">Greek</option>
+
+      </select> <br>
+    <select class="upload-elem" name="annotation" required>
+        <option value="">Select type of annotation</option>
+        <option value="Tok">Tokenization</option>
+        <option value="Tokpos">Tokenization and POS</option>
+        <option value="Toklemma">Tokenization and lemmatization</option>
+        <option value="all">Tokenization, lemmatization and POS</option>
+
+      </select> <br>
+  <input class="execute-btn" type=submit value="Execute">
+</form>
+</div>
+    <textarea placeholder="The result will be displayed here." class="outputDisplay">{{ output }}</textarea>
+    <a class="downloadText" href="{{ fileurl }}">&#129107; Download File</a>
+
+ <script>
+    function openNav() {
+        document.getElementById("mySidenav").style.display = "inline-block";
+      document.getElementById("mySidenav").style.width = "300px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.display = "none";
+      document.getElementById("mySidenav").style.width = "0";
+    }
+
+    function openDrop() {
+        document.getElementById("dropdown-menu").style.display = "block";
+    }
+
+    function closeDrop() {
+        document.getElementById("dropdown-menu").style.display = "none";
+    }
+
+    function toggleDropdown() {
+        dropDisplay = document.getElementById("dropdown-menu").style.display;
+        if (dropDisplay == "block") {
+        return closeDrop();
+    }
+    return openDrop();
+    }
+
+    function logoutConf() {
+        var message = confirm("Are you sure you want to logout?");
+        if (message == true) {
+            document.getElementById("logout").href = "/logout";
+        }
+    }
+</script>
+<footer>
+	<strong>MUCA Project 2021</strong><br>
+	Team 404NotFound<br>
+	[Rights or no Rights] Reserved<br>
+	NLP tools and features powered by <a href="https://spacy.io/"target="_blank">SpaCy</a>
+</footer>
+</body>
+
+</html>

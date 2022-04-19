@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<corpus>
+	<File>
+		<token POS="PRON" lemma="he" id="1">He</token>
+		<token POS="VERB" lemma="dream" id="2">dreamed</token>
+		<token POS="NOUN" lemma="yesterday" id="3">yesterday</token>
+		<token POS="PUNCT" lemma="." id="4">.</token>
+		<token POS="SPACE" lemma="&#10;" id="5">
+</token>
+		<token POS="PRON" lemma="he" id="6">he</token>
+		<token POS="VERB" lemma="dream" id="7">dreamt</token>
+		<token POS="PRON" lemma="something" id="8">something</token>
+		<token POS="PUNCT" lemma="." id="9">.</token>
+	</File>
+</corpus>
